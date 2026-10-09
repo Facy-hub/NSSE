@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      /* Ensure window.fetch has both getter and setter for third-party browser extensions and request interceptors */
+      (function() {
+        try {
+          var _rawFetch = window.fetch ? window.fetch.bind(window) : null;
+          var _currentFetch = _rawFetch;
+          Object.defineProperty(window, 'fetch', {
+            get: function() {
+              return _currentFetch;
+            },
+            set: function(val) {
+              _currentFetch = val;
+            },
+            configurable: true,
+            enumerable: true
+          });
+        } catch (e) {}
+
+        /* Suppress external chrome-extension errors from interfering with the application */
+        window.addEventListener('error', function(event) {
+          if (
+            (event.message && event.message.indexOf('Cannot set property fetch') !== -1) ||
+            (event.filename && event.filename.indexOf('chrome-extension://') !== -1)
+          ) {
+            event.stopImmediatePropagation();
+            event.preventDefault();
+            return true;
+          }
+        }, true);
+      })();
+    </script>
+    <title>NSSE School Management System</title>
+    <meta name="description" content="Official dark-themed student information & records management portal for Nawaz Sharif School of Eminence (NSSE), featuring camera capture, MFA faculty login, Google Sheet integration, and offline mode." />
+    <meta property="og:title" content="NSSE School Management System" />
+    <meta property="og:description" content="Official dark-themed student information & records management portal for Nawaz Sharif School of Eminence (NSSE), featuring camera capture, MFA faculty login, Google Sheet integration, and offline mode." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/jpeg" href="/school-logo.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-slate-950 text-slate-100 antialiased selection:bg-emerald-600 selection:text-white">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

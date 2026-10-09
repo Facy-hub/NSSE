@@ -1,0 +1,10 @@
+{
+  "name": "NSSE School Management System",
+  "description": "Official dark-themed student information & records management portal for Nawaz Sharif School of Eminence (NSSE), featuring camera capture, MFA faculty login, Google Sheet integration, and offline mode.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
